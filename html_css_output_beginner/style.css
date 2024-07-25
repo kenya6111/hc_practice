@@ -1,13 +1,12 @@
 .container {
   width: 960px;
-  padding: 0 4%;
 }
 header {
   display: flex;
   justify-content: space-between;
   width: 50%;
   margin-bottom: 5px;
-  margin: 7px auto 7px auto;
+  margin: 7px auto;
 }
 
 header h2 {
@@ -19,15 +18,11 @@ header h2 {
 }
 
 header ul {
-  margin-top: 5px;
   list-style: none;
   display: flex;
+  gap: 10px;
+  align-items: center;
 }
-
-header ul li {
-  margin: 0 10px;
-}
-
 .main-visual {
   width: 100%;
   height: 600px;
@@ -55,6 +50,7 @@ header ul li {
 .profile-content {
   display: flex;
   width: 45rem;
+  gap: 20px;
 }
 
 .profile-name {
@@ -62,12 +58,9 @@ header ul li {
   margin-bottom: 10px;
 }
 
-.profile-introduction {
-}
 .profile-content img {
   border-radius: 100%;
   width: 50%;
-  margin-left: 10%;
 }
 .profile-image-contents {
   width: 70%;
@@ -85,11 +78,10 @@ header ul li {
   border-bottom: 1px solid black;
 }
 
-.profile-image-title {
-}
 .profile-image {
   display: flex;
   justify-content: space-between;
+  gap: 15px;
 }
 
 .profile-image figure {
@@ -104,7 +96,7 @@ header ul li {
   text-align: center;
 }
 .profile-image figure img {
-  width: 95%;
+  width: 100%;
 }
 
 footer {
@@ -132,13 +124,12 @@ footer {
   }
 
   .profile {
-    width: 100%; /**/
+    width: 100%;
     margin: 0 auto;
     margin-top: 15%;
   }
   .profile h2 {
-    /**/
-    height: 60px; /**/
+    height: 60px;
     margin: 0 auto 10% auto;
     font-size: 50px;
     text-align: center;
@@ -163,7 +154,6 @@ footer {
   }
 
   .profile-content-image {
-    /**/
     text-align: center;
   }
 
@@ -191,7 +181,7 @@ footer {
   }
 
   .profile-image {
-    flex-flow: column; /**/
+    flex-flow: column;
   }
 
   .profile-image figure {
