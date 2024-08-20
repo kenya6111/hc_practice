@@ -22,7 +22,7 @@ if __name__ == '__main__':
     if division_type == 0:
         create_groups(result_group1, result_group2, group, 4)
     if division_type == 1:
-        create_groups(result_group1, result_group2, group, 2)
+        create_groups(result_group1, result_group2, group, 3)
 
-    print(result_group2)
     print(result_group1)
+    print(result_group2)
