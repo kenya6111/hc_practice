@@ -29,12 +29,7 @@ class Color:
     BG_DEFAULT     = '\033[49m'#背景色をデフォルトに戻す
     RESET          = '\033[0m'#全てリセット
 
-week1=[]
-week2=[]
-week3=[]
-week4=[]
-week5=[]
-week6=[]
+weeks = [[] for _ in range(6)]  # 6週間分のリストを用意
 week_list=["月","火","水","木","金","土","日"]
 
 def count_by_week(first_day, end_day, d, now_day):
@@ -42,45 +37,24 @@ def count_by_week(first_day, end_day, d, now_day):
     カレンダー情報を生成する。
     """
     day = 1
-    for i in range(1,6*7):
-
-        if i < first_day.weekday() + 1:
-            week1.append("  ")
+    for i in range(6*7):
+        if i < first_day.weekday():
+            weeks[i // 7].append("  ")
             continue
-        elif i <= 7:
-            week1.append(" " + str(day))
-            day += 1
-        elif i <= 14:
-            if day < 10:
-                week2.append(" " + str(day))
+        elif day <= end_day.day:
+            if day == now_day:
+                weeks[i // 7].append(f'{Color.BLACK}{Color.BG_WHITE}{day:2}{Color.RESET}')
             else:
-                week2.append(str(day))
+                weeks[i // 7].append(f"{day:2}")
             day += 1
-        elif i <= 21:
-            week3.append(str(day))
-            day += 1
-        elif i <= 28:
-            week4.append(str(day))
-            day += 1
-        elif i <= 35:
-            if day == end_day.day+1:
-                break
-            week5.append(str(day))
-            day += 1
-        elif i <= 42:
-            if day == end_day.day+1:
-                break
-            week6.append(str(day))
-            day += 1
+            continue
+        else:
+            weeks[i // 7].append("  ")
 
     print("     {}月 {}".format(d.month,d.year))
     print(' '.join(week_list))
-    print(' '.join(week1))
-    print(' '.join(week2))
-    print(' '.join(week3))
-    print(' '.join(week4))
-    print(' '.join(week5))
-    print(' '.join(week6))
+    for week in weeks:
+        print(" ".join(week))
 
 def create_calender():
     """
@@ -117,9 +91,6 @@ def create_calender_option():
     except ValueError:
         print(f"{month} is neither a month number (1..12) nor a name")
 
-def count_test (num):
-    num=num+1
-
 if __name__ == '__main__':
     if len(sys.argv) > 1 and sys.argv[1] == '-m':
         if len(sys.argv) < 3:
@@ -127,4 +98,3 @@ if __name__ == '__main__':
         create_calender_option()
     else:
         create_calender()
-    print(f'{Color.BLACK}{Color.BG_WHITE}aaaa{Color.RESET}')
