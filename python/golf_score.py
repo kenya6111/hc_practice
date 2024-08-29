@@ -19,31 +19,22 @@ def actual_strokes_check(list_actual_strokes):
         sys.exit(1)  # プログラムを終了する
 
 def score_judge(regulation_strokes, actual_strokes ,score_list):
+    SCORE_MAPPING = {
+        4: "コンドル",
+        3: "アルバトロス",
+        2: "イーグル",
+        1: "バーディ",
+        0: "パー",
+        -1: "ボギー"
+    }
     for v1,v2 in zip(regulation_strokes, actual_strokes):
         diff = v1-v2
-
-        if diff == 0:
-            score_list.append("パー")
-        elif diff == 1:
-            score_list.append("バーディ")
-        elif diff == 2:
-            if v1 == 3 or v2 == 1:
-                score_list.append("ホールインワン")
-            else:
-                score_list.append("イーグル")
-        elif diff == 3:
-            if v1 == 4:
-                score_list.append("ホールインワン")
-            else:
-                score_list.append("アルバトロス")
-        elif diff == 4 and v1 == 5:
-                score_list.append("コンドル")
-        elif v2 == 1:
+        if v2 == 1 and v1 != 5:
             score_list.append("ホールインワン")
-        elif diff == -1:
-            score_list.append("ボギー")
+        elif diff in SCORE_MAPPING:
+            score_list.append(SCORE_MAPPING.get(diff))
         else:
-            score_list.append(f"{v2-v1}ボギー")
+            score_list.append(f"{-diff}ボギー")
 
 
 if __name__ == "__main__":
