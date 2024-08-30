@@ -1,23 +1,23 @@
 
 class Juice:
     def __init__(self, name, price):
-        self._name = name
-        self._price = price
+        self.__name = name
+        self.__price = price
 
     @property
     def name(self):
-        return self._name
+        return self.__name
     @name.setter
     def name(self, val):
-        if len(val) < 0:
-            raise ValueError("値が不正です")
-        self._name = val
+        if val < 0:
+            return None
+        self.__name = val
 
     @property
     def price(self):
-        return self._price
+        return self.__price
     @price.setter
     def price(self, val):
-        if len(val) < 0:
-            raise ValueError("値が不正です")
-        self._price = val
+        if val < 0:
+            return None
+        self.__price = val
