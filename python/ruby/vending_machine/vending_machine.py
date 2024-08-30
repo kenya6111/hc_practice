@@ -37,7 +37,7 @@ class VendingMachine:
                 target_juice = key
                 break
         if target_juice is None:
-            return None  # ジュースが見つからない場合
+            return None
         stock = self.list_drinks[target_juice]
         if stock < buy_quantity:
             return None
@@ -46,6 +46,7 @@ class VendingMachine:
         self.__list_drinks[target_juice] -= buy_quantity
         self.__revenue += target_juice.price * buy_quantity
         suica.deduct_balance(target_juice.price * buy_quantity)
+        return True #　正常に処理が終了
 
     def get_current_revenue(self):
         return self.revenue
@@ -59,6 +60,7 @@ class VendingMachine:
         if target_juice is None:
             return None
         self.__list_drinks[target_juice] += stock_num
+        return True #　正常に処理が終了
 
 
 

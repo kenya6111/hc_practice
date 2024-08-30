@@ -11,11 +11,13 @@ class Suica:
         if deposit < 0:
             return
         self.__deposit = deposit
+        return True
 
     def charge (self , money):
         if money < 100:
             return None
         self.__deposit+= money
+        return True #正常に処理が終了
 
     def get_balance(self):
         return self.__deposit
@@ -24,3 +26,4 @@ class Suica:
         if self.__deposit < purchase_money:
             return None
         self.__deposit -= purchase_money
+        return True #正常に処理が終了
