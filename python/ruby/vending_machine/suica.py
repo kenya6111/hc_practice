@@ -9,13 +9,13 @@ class Suica:
     @deposit.setter
     def deposit(self, deposit):
         if deposit < 0:
-            return
+            raise ValueError("")
         self.__deposit = deposit
         return True
 
     def charge (self , money):
         if money < 100:
-            return None
+            raise ValueError("チャージ金額は100円~になります。")
         self.__deposit+= money
         return True #正常に処理が終了
 
@@ -24,6 +24,6 @@ class Suica:
 
     def deduct_balance(self, purchase_money):
         if self.__deposit < purchase_money:
-            return None
+            raise ValueError()
         self.__deposit -= purchase_money
         return True #正常に処理が終了
