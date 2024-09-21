@@ -1,0 +1,80 @@
+[users]
+  *id {label: "serial, not null"}
+  email {label: "varchar, not null, uniq" }
+  user_name {label: "varchar, not null, uniq" }
+  phone {label: "varchar, not null, uniq" }
+  display_name {label: "varchar, not null, uniq" }
+  introduction {label: "text" }
+  location {label: "varchar" }
+  website {label: "varchar" }
+  birth {label: "varchar" }
+  profile_image {label: "varchar" }
+  avatar_image {label: "varchar" }
+  created_at { label: "datatime, not null"}
+  updated_at { label: "datatime, not null"}
+
+[tweets]
+ *id {label: "serial, not null"}
+ user_id {label: "bigint, not null, FK(users)"}
+ content {label: "varchar(140), not null"}
+ created_at { label: "datatime, not null"}
+ updated_at { label: "datatime, not null"}
+
+[likes]
+ *id {label: "serial, not null"}
+ user_id {label: "bigint, not null, FK(users)"}
+ tweet_id {label: "bigint, not null, FK(tweets)"}
+ created_at { label: "datatime, not null"}
+ updated_at { label: "datatime, not null"}
+
+[retweets]
+ *id {label: "serial, not null"}
+ user_id {label: "bigint, not null, FK(users)"}
+ tweet_id {label: "bigint, not null, FK(tweets)"}
+ created_at { label: "datatime, not null"}
+ updated_at { label: "datatime, not null"}
+
+[bookmarks]
+ *id {label: "serial, not null"}
+ user_id {label: "bigint, not null, FK(users)"}
+ tweet_id {label: "bigint, not null, FK(tweets)"}
+ created_at { label: "datatime, not null"}
+ updated_at { label: "datatime, not null"}
+
+
+[follows]
+ *id {label: "serial, not null"}
+ follow_id {label: "bigint, not null, FK(users)"}
+ followed_id {label: "bigint, not null, FK(user)"}
+ created_at { label: "datatime, not null"}
+ updated_at { label: "datatime, not null"}
+
+[messages]
+ *id {label: "serial, not null"}
+ sender_id {label: "bigint, not null, FK(users)"}
+ receiver_id {label: "bigint, not null, FK(user)"}
+ message_content {label: "text, not null"}
+ created_at { label: "datatime, not null"}
+ updated_at { label: "datatime, not null"}
+
+[notices]
+  *id {label: "serial, not null"}
+  user_id {label: "bigint, not null, FK(users)"}
+  notice_type {label:"bigint, not null"}
+  source_id {label:"bigint, not null"}
+  created_at { label: "datatime, not null"}
+  updated_at { label: "datatime, not null"}
+
+# Cardinality    Syntax
+# 0 or 1         ?
+# exactly 1      1
+# 0 or more      *
+# 1 or more      +
+
+users 1--* tweets
+users 1--* likes
+users 1--* retweets
+users 1--* follows
+users 1--* messages
+users 1--* notices
+users 1--* bookmarks
