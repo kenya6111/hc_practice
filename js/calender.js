@@ -4,6 +4,77 @@
 //     console.log("argv[" + i + "] = " + process.argv[i]);
 // }
 // console.log(process.argv.length)
+class Constants {
+    static arrDay = ["日","月","火","水","木","金","土"];
+}
+
+function printCalender(arr1,arr2,arr3,arr4,arr5,arr6){
+
+    console.log(Constants.arrDay.join(" "))
+    console.log(arr1.join(" "))
+    console.log(arr2.join(" "))
+    console.log(arr3.join(" "))
+    console.log(arr4.join(" "))
+    console.log(arr5.join(" "))
+    console.log(arr6.join(" "))
+}
+
+function createCalenderList(arr1,arr2,arr3,arr4,arr5,arr6,firstDayOfCurrentMonth,endDate){
+    let dateCount = 1
+    for(let i=0;i<42;i++){
+        // 第1週目を作成
+        // --月の初日の曜日までは空白埋め
+        if(i < firstDayOfCurrentMonth)
+        {
+            arr1.push("  ")
+            continue
+        }
+        // --7日目まで埋める
+        if(i<7)
+        {
+            arr1.push(dateCount.toString().padEnd(2," "))
+            dateCount++
+            continue
+        }
+        // 第2週目を作成
+        if(i<14)
+        {
+            arr2.push(dateCount.toString().padEnd(2," "))
+            dateCount++
+            continue
+        }
+        // 第3週目を作成
+        if(i<21)
+        {
+            arr3.push(dateCount.toString().padEnd(2," "))
+            dateCount++
+            continue
+        }
+        // 第4週目を作成
+        if(i<28)
+        {
+            arr4.push(dateCount.toString().padEnd(2," "))
+            dateCount++
+            continue
+        }
+        // 第5週目を作成
+        if(i<35)
+        {
+            if( dateCount > endDate)break;
+            arr5.push(dateCount.toString().padEnd(2," "))
+            dateCount++
+            continue
+        }
+        if(i<42)
+        {
+            if( dateCount > endDate)break;
+            arr6.push(dateCount.toString().padEnd(2," "))
+            dateCount++
+            continue
+        }
+    }
+
+}
 
 
 
@@ -23,7 +94,6 @@ if(process.argv.length <= 2)
         now.setDate(1);
         const firstDayOfCurrentMonth = now.getDay()
 
-        const arrday = ["日","月","火","水","木","金","土"]
         const arr1 = []
         const arr2 = []
         const arr3 = []
@@ -31,74 +101,11 @@ if(process.argv.length <= 2)
         const arr5 = []
         const arr6 = []
 
-        let dateCount = 1
-        for(let i=0;i<42;i++){
-            // 第1週目を作成
-            // --月の初日の曜日までは空白で埋める
-            if(i < firstDayOfCurrentMonth)
-            {
-                arr1.push("  ")
-                continue
-            }
-            // --7日目まで埋める
-            if(i<7)
-            {
-                arr1.push(dateCount.toString().padEnd(2," "))
-                dateCount++
-                continue
-            }
-            // 第2週目を作成
-            if(i<14)
-            {
-                arr2.push(dateCount.toString().padEnd(2," "))
-                dateCount++
-                continue
-            }
-            // 第3週目を作成
-            if(i<21)
-            {
-                arr3.push(dateCount.toString().padEnd(2," "))
-                dateCount++
-                continue
-            }
-            // 第4週目を作成
-            if(i<28)
-            {
-                arr4.push(dateCount.toString().padEnd(2," "))
-                dateCount++
-                continue
-            }
-            // 第5週目を作成
-            if(i<35)
-            {
-                if( dateCount > endDate)break;
-                arr5.push(dateCount.toString().padEnd(2," "))
-                dateCount++
-                continue
-            }
-            if(i<42)
-            {
-                if( dateCount > endDate)break;
-                arr6.push(dateCount.toString().padEnd(2," "))
-                dateCount++
-                continue
-            }
-        }
-        // console.log(now)
-        // console.log(currentYear)
-        // console.log(currentMonth)
-        // console.log(currentDate)
-        // console.log(endDay)
-        // console.log(currentDay)
-
+        // カレンダー作成
+        createCalenderList(arr1,arr2,arr3,arr4,arr5,arr6,firstDayOfCurrentMonth,endDate)
+        // カレンダー出力
         console.log(`     ${currentMonth+1}月 ${currentYear}`)
-        console.log(arrday.join(" "))
-        console.log(arr1.join(" "))
-        console.log(arr2.join(" "))
-        console.log(arr3.join(" "))
-        console.log(arr4.join(" "))
-        console.log(arr5.join(" "))
-        console.log(arr6.join(" "))
+        printCalender(arr1,arr2,arr3,arr4,arr5,arr6)
 
 
     }
@@ -122,8 +129,7 @@ else if(process.argv[2] == "-m"
         // 該当月の初日取得
         now.setDate(1);
         const firstDayOfCurrentMonth = now.getDay()
-        
-        const arrday = ["日","月","火","水","木","金","土"]
+
         const arr1 = []
         const arr2 = []
         const arr3 = []
@@ -131,73 +137,12 @@ else if(process.argv[2] == "-m"
         const arr5 = []
         const arr6 = []
 
-        let dateCount = 1
-        for(let i=0;i<42;i++){
-            // 第1週目を作成
-            // --月の初日の曜日までは空白で埋める
-            if(i < firstDayOfCurrentMonth)
-            {
-                arr1.push("  ")
-                continue
-            }
-            // --7日目まで埋める
-            if(i<7)
-            {
-                arr1.push(dateCount.toString().padEnd(2," "))
-                dateCount++
-                continue
-            }
-            // 第2週目を作成
-            if(i<14)
-            {
-                arr2.push(dateCount.toString().padEnd(2," "))
-                dateCount++
-                continue
-            }
-            // 第3週目を作成
-            if(i<21)
-            {
-                arr3.push(dateCount.toString().padEnd(2," "))
-                dateCount++
-                continue
-            }
-            // 第4週目を作成
-            if(i<28)
-            {
-                arr4.push(dateCount.toString().padEnd(2," "))
-                dateCount++
-                continue
-            }
-            // 第5週目を作成
-            if(i<35)
-            {
-                if( dateCount > endDate)break;
-                arr5.push(dateCount.toString().padEnd(2," "))
-                dateCount++
-                continue
-            }
-            if(i<42)
-            {
-                if( dateCount > endDate)break;
-                arr6.push(dateCount.toString().padEnd(2," "))
-                dateCount++
-                continue
-            }
-        }
-        // console.log(now)
-        // console.log(currentYear)
-        // console.log(currentMonth)
-        // console.log(currentDate)
-        // console.log(endDay)
-        // console.log(currentDay)
+        // カレンダー作成
+        createCalenderList(arr1,arr2,arr3,arr4,arr5,arr6,firstDayOfCurrentMonth,endDate)
 
+        // カレンダー出力
         console.log(`     ${inputMonth}月 ${currentYear}`)
-        console.log(arrday.join(" "))
-        console.log(arr1.join(" "))
-        console.log(arr2.join(" "))
-        console.log(arr3.join(" "))
-        console.log(arr4.join(" "))
-        console.log(arr5.join(" "))
-        console.log(arr6.join(" "))
+        printCalender(arr1,arr2,arr3,arr4,arr5,arr6)
 
 }
+
