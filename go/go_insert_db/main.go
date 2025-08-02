@@ -37,7 +37,6 @@ func main(){
 	defer db.Close()
 
 	args := os.Args
-	fmt.Println(args)
 	if len(args) != 2 {
 		fmt.Println("引数の数が間違っています")
 		os.Exit(1)
@@ -45,7 +44,9 @@ func main(){
 	f2, err := os.OpenFile(args[1],os.O_RDONLY, 0644)
 	if err != nil {
 		fmt.Println("err ", err)
+		os.Exit(1)
 	}
+	defer f2.Close()
 
 	scanner := bufio.NewScanner(f2)
 	tx, err := db.Begin()
@@ -54,20 +55,28 @@ func main(){
 	}
 
     for scanner.Scan() {
-        fmt.Println(scanner.Text())
 
 		var log Log
-		json.Unmarshal(scanner.Bytes(), &log)
-
-		fmt.Println(log)
+		if err := json.Unmarshal(scanner.Bytes(), &log); err != nil{
+			fmt.Printf("JSON parse error: %v\n", err)
+			tx.Rollback()
+			os.Exit(1)
+		}
 
 		sqlStatement := `INSERT INTO users (age, name, role) VALUES ($1, $2, $3)`
 		_, err = tx.Exec(sqlStatement,log.User.Age, log.User.Name, log.User.Role)
 		if err != nil {
 			tx.Rollback()
 			fmt.Println(err)
+			os.Exit(1)
 		}
+		fmt.Println(scanner.Text())
     }
+	if err := scanner.Err(); err != nil {
+		fmt.Println("ファイル読み取り中のエラー:", err)
+		tx.Rollback()
+		os.Exit(1)
+	}
 
 	if err := tx.Commit(); err != nil {
 		log.Fatal(err)
